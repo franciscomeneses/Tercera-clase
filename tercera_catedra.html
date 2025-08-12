@@ -4,7 +4,7 @@
     <title>Promedios, Intervalos de Confianza y Teoría del Límite Central</title>
     <meta charset="utf-8" />
     <meta name="author" content="Francisco Meneses" />
-    <meta name="date" content="2025-08-11" />
+    <meta name="date" content="2025-08-12" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan_custom/xaringan-themer.css" type="text/css" />
   </head>
@@ -198,21 +198,37 @@ $$
 
 ---
 
-# Teoría del Límite Central (TLC)
+## Teoría del Límite Central (TLC)
 
-- Es la **base teórico matemático** de los Intervalos de confianza
+Es la **base teórica matemática** de la estádistica inferencial y de los Intervalos de confianza
 
-- Desde aquí nace la idea del 1.96 en la fórmula para un intervalo de confianza que utiliza el 95% de confianza
 
 
 .center[
-&lt;img src="images/intervalo-de-confianza-4.png" size="60%"&gt;
+&lt;img src="images/intervalo-de-confianza-4.png" size="40%"&gt;
 ]
 
---
 
 
 &gt; “Si graficamos la distribución del promedio de muchas muestras tiende a una normal al aumentar el tamaño de la muestra, **sin importar la distribución original**.”
+
+---
+
+
+## Teoría del Límite Central (TLC)
+
+Es la **base teórica matemática** de la estádistica inferencial y de los Intervalos de confianza
+
+Desde aquí nace el número **1.96** en la fórmula para un intervalo de confianza que utiliza el 95% de confianza
+
+Si consideramos la distribución normal de los promedios de “infinitas” muestras, y dejamos +/- 1,96 desviaciones estándar hacia ambos lados del parámetro poblacional, cubrimos el 95% de los promedios obtenidos. 
+
+
+
+.center[
+&lt;img src="images/intervalo-de-confianza-4.png" size="40%"&gt;
+]
+
 
 ---
 
@@ -298,7 +314,7 @@ class: inverse, middle, center, slideInRight
 
 &gt; Cuando queremos evaluar si la *diferencia de los promedios* de *dos* grupos es estadísticamente significativa
 
-- __Variable dependiente__: Escala de medición **intervalo o razón**.
+- __Variable dependiente__: Escala de medición númerica **intervalar o razón**.
 
 
 - __Variable independiente__: Categórica (nominal u ordinal) con 2 categorías o grupos
@@ -335,7 +351,7 @@ donde:
 
 .pull-right[
 
-* Así se distribuye el valor t en una muestra donde no hay diferencia de medias (es decir, donde `\(H_0\)` es real)
+* Así se distribuye el valor t en una muestra grande donde no hay diferencia de medias (es decir, donde `\(H_0\)` es real)
 
 ]
 ---
@@ -349,14 +365,12 @@ donde:
 
 &gt;  el valor p nos dice que tan improbable es haber encontrado un valor t en una muestra donde `\(H_0\)` es real (No hay diferencias).  Si p &lt; 0.05 descartamos `\(H_0\)` y asumimos `\(H_1\)`
 
+_" Si p &lt; 0.05 Existe menos de un 5% de probabilidad de haber encontrado un valor t tan grande en una muestra donde no existe asociación (`\(H_0\)`), por lo cual, asumimos que si existen diferencias de medias (`\(H_1\)`)"_
 --
 
-### Ejercicio
+### Ejercicios
 
-- p = 0.03 
-- p = 0.07
-- p = 0.4 
-- p = 0.006 
+ p = 0.03 | p = 0.07 | p = 0.4  |  p = 0.006 
 
 
 ---
@@ -401,6 +415,7 @@ t.test(Petal.Width ~ Species, data = iris2)
 * Si p&lt; 0.05 rechazamos `\(H_0\)` y asumimos que existe diferencia de medias (`\(H_1\)`)
 
 
+_" Si p &lt; 0.05 Existe menos de un 5% de probabilidad de haber encontrado un valor t tan grande en una muestra donde no existe asociación (`\(H_0\)`), por lo cual, asumimos que las diferencias observadas en la muestra son significativas, es decir, existen a nivel poblacional (`\(H_1\)`)"_
 
 ---
 
