@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Promedios, Intervalos de Confianza y Teoría del Límite Central</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Francisco Meneses" />
+    <meta name="date" content="2025-08-11" />
+    <script src="libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan_custom/xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: inverse, bottom, right
+
+
+
+
+
+
+
+
+&lt;!---
+About macros.js: permite escalar las imágenes como [:scale 50%](path to image), hay si que grabar ese archivo js en el directorio.
+.pull-left[&lt;images/Conocimiento cívico.png&gt;] 
+.pull-right[&lt;images/Conocimiento cívico_graf.png&gt;]
+
+---&gt;
+
+# __Tercera Clase Métodos Cuantitativos II__
+## *Cálculo de intervalos de confianza, Teoría del Límite Central y prueba t*
+&lt;br&gt;
+&lt;hr&gt;
+
+
+### Docente: Francisco Meneses
+
+
+&lt;br&gt;
+
+---
+class: inverse, center, middle
+
+# Retomemos: 
+#¿Qué es la inferencia estadística?
+
+???
+
+Intentar inferir información de la población a partir de datos muestrales
+
+---
+
+# Intervalo de Confianza (IC)
+
+&gt; Es un **rango** en torno al promedio muestral que contiene al verdadero promedio poblacional con cierta seguridad (confianza).  
+
+- Ej: “El promedio estimado es 500 puntos, con un IC del 95% entre 485 y 515”.  
+
+--
+
+- Significa que **si repitiéramos el estudio muchas veces**, el 95% de los intervalos obtenidos contendría el valor real.
+
+
+
+---
+
+## ¿Cómo se ve un intervalo de confianza?
+
+.pull-left[
+![](tercera_catedra_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+Nota: Apreciamos 5 grupos socioeconómicos con distintos promedios SIMCE y distintos intervalos de confianza. Algunos intervalos son más grandes que otros. Algunos grupos se solapan y otros no. El grupo c no se solapa con el grupo d
+
+Si los intervalos no se solapan decimos que existen diferencias significativas.
+
+**Diferencias significativas**: Diferencias que existen más allá de la muestra. 
+
+]
+
+
+
+---
+
+# ¿Utilidad de los intervalos de confianza?
+
+- Podemos **comparar grupos**: ¿las diferencias son reales o por el azar de la muestra?  
+
+- Podríamos evaluar si un programa **funcionó**.  
+
+- Ayuda a **comunicar resultados** con transparencia.
+
+
+
+---
+# ¿Cómo se calcula el intervalo de confianza para una media?
+
+Para una **variable continua**, como por ejemplo el puntaje en una prueba, el **intervalo de confianza del 95%** para la media se calcula como:
+
+
+
+
+$$
+IC = \bar{x} \pm 1.96 \cdot \frac{s}{\sqrt{n}}
+$$
+
+---
+
+# Ejemplo:
+
+Supongamos que en una muestra de estudiantes:
+
+- Media = 70  
+- Desviación estándar = 10  
+- Tamaño de muestra = 25
+
+$$
+IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
+$$
+
+
+
+$$
+IC = \{70} \pm 1.96 \cdot \frac{10}{\sqrt{25}}
+$$
+Margen de error: 3,92; Intervalo de confianza: 66,08 -  73,92
+
+--
+
+**Interpretación:** Estamos un 95% confiados de que el promedio real en la población se encuentra entre **66.08 y 73.92 puntos**.
+
+---
+
+# ¿Cómo se calcula el intervalo de confianza para una proporción?
+
+Para una **variable dicotómica** (por ejemplo, estar de acuerdo / no estar de acuerdo), el **intervalo de confianza del 95%** para una proporción se calcula como:
+
+$$
+IC = \hat{p} \pm z \cdot \sqrt{ \frac{\hat{p}(1 - \hat{p})}{n} }
+$$
+
+Donde:
+
+- \\( \hat{p} \\): proporción observada en la muestra  
+- \\( z \\): valor crítico (1.96 para un IC del 95%)  
+- \\( n \\): tamaño de la muestra
+
+
+---
+
+# Ejemplo:
+
+Supongamos que en una encuesta:
+
+- 120 personas respondieron y 72 están de acuerdo con una afirmación
+
+Entonces:
+
+- \\( \hat{p} = \frac{72}{120} = 0.60 \\)  
+- \\( n = 120 \\)  
+- \\( z = 1.96 \\)
+
+
+$$
+IC = 0.60 \pm 1.96 \cdot \sqrt{ \frac{0.60(1 - 0.60)}{120} } 
+$$
+
+$$
+IC = (0.5124,\ 0.6876)
+$$
+
+---
+
+# ¿Qué intervalos queremos?
+
+* Intervalos más pequeños son más precisos y útiles
+
+
+# ¿De qué depende el tamaño del intervalo? 
+
+  * Del tamaño de la muestra (\\( n \\))
+      + Muestras más grandes dan intervalos más pequeños (Precisos)
+  
+  * Nivel de confianza (90%, 95%, 99%, 99.9%)
+  
+      + A mayor nivel de confianza más grande es el intervalo (Impreciso pero más confiable)
+      
+  * Nivel de dispersión de los datos
+      +  Datos más dispersos implican intervalos más grandes. 
+
+
+---
+
+&lt;embed src="https://o5uemt-francisco-meneses0rivas.shinyapps.io/app_ic_parametros" style="width:800px; height: 800px;"&gt;
+
+
+---
+
+# Teoría del Límite Central (TLC)
+
+- Es la **base teórico matemático** de los Intervalos de confianza
+
+- Desde aquí nace la idea del 1.96 en la fórmula para un intervalo de confianza que utiliza el 95% de confianza
+
+
+.center[
+&lt;img src="images/intervalo-de-confianza-4.png" size="60%"&gt;
+]
+
+--
+
+
+&gt; “Si graficamos la distribución del promedio de muchas muestras tiende a una normal al aumentar el tamaño de la muestra, **sin importar la distribución original**.”
+
+---
+
+
+&lt;embed src="https://o5uemt-francisco-meneses0rivas.shinyapps.io/taller1-c1/" style="width:800px; height: 800px;"&gt;
+
+
+
+---
+
+# En suma: el Teoría del Límite Central (TLC)
+
+&gt; Si sacamos una muestra al azar, es altamente improbable que el promedio de la muestra sea muy distinto al obtenido
+
+&gt; Podemos calcular un intervalo en torno al promedio muestral en el cual tendremos un % de confianza de que el parámetro poblacional está incluido.
+
+
+
+
+---
+
+### ¿Por qué es importante la Teoría del Límite Central?
+
+- Es la base de la estadística inferencial
+
+- Nos permite **estimar la incertidumbre** con herramientas conocidas.  
+
+- Hace posible usar la **distribución normal** (z, t, etc.) para construir intervalos y hacer pruebas.
+
+
+---
+
+# Recapitulación
+
+- El **promedio** resume nuestros datos, pero tiene incertidumbre debido a trabajar
+con muestras.
+
+- Los **intervalos de confianza** permiten expresar esa incertidumbre.  
+
+- Gracias a la **Teoría del Límite Central**, podemos confiar en la forma en que estimamos esa incertidumbre.
+
+---
+
+# Pregunta para pensar 🤔
+
+&gt; ¿Por qué es más útil reportar un promedio **con su intervalo de confianza**, en vez del promedio solo?
+
+--
+
+- ¿Qué responderías tú como investigador/a?
+
+# Actividad breve 
+
+- Forma grupos de 2-3 personas.  
+- Responde:  
+  - ¿Cómo explicarías el concepto de intervalo de confianza a alguien que no estudia estadísticas?  
+  - ¿En qué tipo de decisiones crees que sería útil usarlo?  
+  - ¿Puedes dar un ejemplo en educación, salud o política?
+
+---
+
+class: inverse, middle, center, slideInRight
+
+# Prueba t
+
+## Evaluando diferencia de medias
+
+---
+
+## ¿Qué es la prueba *t* ?
+
+- Herramienta estadística para comparar **medias**.
+
+- Evalúa si la diferencia observada entre medias de dos grupos estadísticamente significativa.
+
+- Contrasta la evidencia estadística contra `\(H_0\)` qué supone que **NO** existe diferencia de medias
+
+    + Si rechazamos `\(H_0\)` asumimos que si existen diferencias de medias (`\(H_0\)`)
+
+---
+
+## ¿Cuándo utilizamos la prueba t?
+
+&gt; Cuando queremos evaluar si la *diferencia de los promedios* de *dos* grupos es estadísticamente significativa
+
+- __Variable dependiente__: Escala de medición **intervalo o razón**.
+
+
+- __Variable independiente__: Categórica (nominal u ordinal) con 2 categorías o grupos
+
+
+## Supuestos para su aplicación
+
+- **Normalidad** de la variable (especialmente importante para n pequeños).
+
+
+- En muestras independientes: **homogeneidad de varianzas** (prueba de Levene).
+
+---
+
+
+### Fórmula general
+
+
+$$
+t \;=\; \frac{\bar{X}_1 - \bar{X}_2}{\sqrt{\frac{s_1^2}{n_1} \;+\; \frac{s_2^2}{n_2}}}
+$$
+
+donde:  
+- `\(\bar{X}_1\)` y `\(\bar{X}_2\)` son las medias de los dos grupos.  
+- `\(s_1^2\)` y `\(s_2^2\)` son las varianzas muestrales.  
+- `\(n_1\)` y `\(n_2\)` son los tamaños de muestra.  
+
+--
+
+
+.pull-left[
+&lt;img src="images/intervalo-de-confianza-4.png" size="40%"&gt;
+]
+
+.pull-right[
+
+* Así se distribuye el valor t en una muestra donde no hay diferencia de medias (es decir, donde `\(H_0\)` es real)
+
+]
+---
+
+### Interpretación
+
+- **Valor p &lt; 0.05** → diferencia estadísticamente significativa.  
+
+- **Valor p ≥ 0.05** → no hay evidencia suficiente para afirmar que las medias difieran.
+
+
+&gt;  el valor p nos dice que tan improbable es haber encontrado un valor t en una muestra donde `\(H_0\)` es real (No hay diferencias).  Si p &lt; 0.05 descartamos `\(H_0\)` y asumimos `\(H_1\)`
+
+--
+
+### Ejercicio
+
+- p = 0.03 
+- p = 0.07
+- p = 0.4 
+- p = 0.006 
+
+
+---
+
+## Ejemplo rápido en R
+
+
+
+
+
+.small[
+
+``` r
+t.test(Petal.Width ~ Species, data = iris2) 
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  Petal.Width by Species
+## t = -42.786, df = 63.123, p-value &lt; 0.00000000000000022
+## alternative hypothesis: true difference in means between group setosa and group virginica is not equal to 0
+## 95 percent confidence interval:
+##  -1.863133 -1.696867
+## sample estimates:
+##    mean in group setosa mean in group virginica 
+##                   0.246                   2.026
+```
+]
+
+---
+
+# En suma: la prueba t
+
+
+*  Nos permite **inferir** si la **diferencia de medias** observada en una muestra entre **dos grupos es significativa** y, por ende, extrapolable a la población
+
+
+* Nos entrega un valor t, y un valor p. A partir del valor p analizamos la significación  
+
+* Si p&lt; 0.05 rechazamos `\(H_0\)` y asumimos que existe diferencia de medias (`\(H_1\)`)
+
+
+
+---
+
+# Ticket de salida
+
+
+&lt;img src="images/qr-ticket2.png" size="90%"&gt;
+
+
+---
+
+## Tipos principales
+
+1. **Prueba *t* para una muestra**  
+   - Compara la media de una muestra con un valor conocido o hipotético.
+
+
+2. **Prueba *t* para muestras independientes**  
+   - Compara medias de **dos grupos distintos**.
+
+
+3. **Prueba *t* para muestras relacionadas**  
+   - Compara medias de **los mismos sujetos** en dos momentos o condiciones.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="xaringan_custom/macros.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
