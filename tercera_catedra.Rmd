@@ -19,7 +19,7 @@ class: inverse, bottom, right
 
 ```{r, include=FALSE,echo=FALSE,results='hide'}
 #install.packages("pagedown")
-#pagedown::chrome_print("segunda_catedra.html",output="segunda_catedra.pdf")
+#pagedown::chrome_print("tercera_catedra.html",output="tercera_catedra.pdf")
 ```
 
 
@@ -411,13 +411,18 @@ _" Si p < 0.05 Existe menos de un 5% de probabilidad de haber encontrado un valo
 
 
 ```{r include=FALSE}
-iris2 = iris %>% filter(Species!="versicolor")
+
+
+
+iris_propia = iris %>% filter(Species!="versicolor")
+
+iris_propia$Species = iris_propia$Species %>% as.character()
 options(scipen = 999)
 ```
 
 .small[
 ```{r}
-t.test(Petal.Width ~ Species, data = iris2) 
+t.test(Petal.Width ~ Species, data = iris_propia) 
 
 ```
 ]
@@ -445,6 +450,48 @@ _" Si p < 0.05 Existe menos de un 5% de probabilidad de haber encontrado un valo
 <img src="images/qr-ticket2.png" size="90%">
 
 
+
+
+---
+
+# Tamaño del efecto: *d* de Cohen
+
+**¿Por qué reportarlo?**
+- El valor *p* solo indica si hay evidencia de diferencia, **no su magnitud**.
+- *d* de Cohen mide el tamaño estandarizado de la diferencia de medias.
+- Ejemplo de factores canserigenos: oxigeno y cigarrillo.
+
+**Fórmula general (muestras independientes)**:
+
+$d = \frac{\bar{X}_1 - \bar{X}_2}{s_p}$
+
+donde $s_p$ es la desviación estándar combinada:
+
+$s_p = \sqrt{ \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} }$
+
+---
+
+## Interpretación de *d* (Cohen, 1988)
+
+| d         | Interpretación  | Comentario breve |
+|-----------|-----------------|------------------|
+| 0.20      | Pequeño         | Diferencia ligera, poco relevante en práctica |
+| 0.50      | Mediano         | Diferencia visible/moderada |
+| 0.80      | Grande          | Diferencia sustancial/práctica |
+|   1.00    | Muy grande      | Diferencia muy marcada |
+
+<span class="small">*Valores umbral son orientativos; el contexto importa.*</span>
+
+---
+
+## Ejemplo rápido en R
+
+```{r}
+
+library(effsize)
+cohen.d(Petal.Width ~ Species, data = iris_propia )
+```
+
 ---
 
 ## Tipos principales
@@ -460,3 +507,12 @@ _" Si p < 0.05 Existe menos de un 5% de probabilidad de haber encontrado un valo
 3. **Prueba *t* para muestras relacionadas**  
    - Compara medias de **los mismos sujetos** en dos momentos o condiciones.
 
+---
+
+# En suma: debemos analizar
+
+-  la significación de las diferencias de medias (p)
+ 
+-  la dirección de las diferencias de medias (t)
+
+- la fuerza de las diferencias de medias (d)

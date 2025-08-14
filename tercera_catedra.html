@@ -4,7 +4,7 @@
     <title>Promedios, Intervalos de Confianza y Teoría del Límite Central</title>
     <meta charset="utf-8" />
     <meta name="author" content="Francisco Meneses" />
-    <meta name="date" content="2025-08-12" />
+    <meta name="date" content="2025-08-13" />
     <script src="libs/header-attrs/header-attrs.js"></script>
     <link rel="stylesheet" href="xaringan_custom/xaringan-themer.css" type="text/css" />
   </head>
@@ -384,7 +384,7 @@ _" Si p &lt; 0.05 Existe menos de un 5% de probabilidad de haber encontrado un v
 .small[
 
 ``` r
-t.test(Petal.Width ~ Species, data = iris2) 
+t.test(Petal.Width ~ Species, data = iris_propia) 
 ```
 
 ```
@@ -425,6 +425,58 @@ _" Si p &lt; 0.05 Existe menos de un 5% de probabilidad de haber encontrado un v
 &lt;img src="images/qr-ticket2.png" size="90%"&gt;
 
 
+
+
+---
+
+# Tamaño del efecto: *d* de Cohen
+
+**¿Por qué reportarlo?**
+- El valor *p* solo indica si hay evidencia de diferencia, **no su magnitud**.
+- *d* de Cohen mide el tamaño estandarizado de la diferencia de medias.
+- Ejemplo de factores canserigenos: oxigeno y cigarrillo.
+
+**Fórmula general (muestras independientes)**:
+
+`\(d = \frac{\bar{X}_1 - \bar{X}_2}{s_p}\)`
+
+donde `\(s_p\)` es la desviación estándar combinada:
+
+`\(s_p = \sqrt{ \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} }\)`
+
+---
+
+## Interpretación de *d* (Cohen, 1988)
+
+| d         | Interpretación  | Comentario breve |
+|-----------|-----------------|------------------|
+| 0.20      | Pequeño         | Diferencia ligera, poco relevante en práctica |
+| 0.50      | Mediano         | Diferencia visible/moderada |
+| 0.80      | Grande          | Diferencia sustancial/práctica |
+|   1.00    | Muy grande      | Diferencia muy marcada |
+
+&lt;span class="small"&gt;*Valores umbral son orientativos; el contexto importa.*&lt;/span&gt;
+
+---
+
+## Ejemplo rápido en R
+
+
+``` r
+library(effsize)
+cohen.d(Petal.Width ~ Species, data = iris_propia )
+```
+
+```
+## 
+## Cohen's d
+## 
+## d estimate: -8.55716 (large)
+## 95 percent confidence interval:
+##     lower     upper 
+## -9.821820 -7.292499
+```
+
 ---
 
 ## Tipos principales
@@ -440,6 +492,15 @@ _" Si p &lt; 0.05 Existe menos de un 5% de probabilidad de haber encontrado un v
 3. **Prueba *t* para muestras relacionadas**  
    - Compara medias de **los mismos sujetos** en dos momentos o condiciones.
 
+---
+
+# En suma: debemos analizar
+
+-  la significación de las diferencias de medias (p)
+ 
+-  la dirección de las diferencias de medias (t)
+
+- la fuerza de las diferencias de medias (d)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
