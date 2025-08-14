@@ -492,6 +492,48 @@ library(effsize)
 cohen.d(Petal.Width ~ Species, data = iris_propia )
 ```
 
+
+---
+```{r eval=FALSE, include=FALSE}
+library(ggplot2)
+library(dplyr)
+
+# Función para simular y graficar dos distribuciones con cierto d
+simula_d <- function(d, sd = 1, n = 10000) {
+  mu1 <- 0
+  mu2 <- d * sd
+  data.frame(
+    valor = c(rnorm(n, mu1, sd), rnorm(n, mu2, sd)),
+    grupo = rep(c("Grupo 1", "Grupo 2"), each = n)
+  )
+}
+
+graficar <- function(df, titulo){
+  ggplot(df, aes(valor, fill = grupo)) +
+    geom_density(alpha = 0.4) +
+    labs(title = titulo, x = "Variable", y = "Densidad") +
+    theme_minimal(base_size = 14) +
+    scale_fill_manual(values = c("#1f77b4", "#ff7f0e"))
+}
+
+# Datos simulados
+df_peq <- simula_d(0.2)
+df_med <- simula_d(0.5)
+df_gra <- simula_d(0.8)
+df_mgra <- simula_d(2.0)
+
+# Graficos
+p1 <- graficar(df_peq, "d = 0.2 (pequeño)")
+p2 <- graficar(df_med, "d = 0.5 (mediano)")
+p3 <- graficar(df_gra, "d = 0.8 (grande)")
+p4 <- graficar(df_mgra, "d = 2.0 (muy grande)")
+
+library(patchwork)
+
+p1 / p2 / p3 / p4
+```
+![](images/d_cohen_plot.png)
+
 ---
 
 ## Tipos principales
