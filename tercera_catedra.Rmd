@@ -442,12 +442,6 @@ t.test(Petal.Width ~ Species, data = iris_propia)
 
 _" Si p < 0.05 Existe menos de un 5% de probabilidad de haber encontrado un valor t tan grande en una muestra donde no existe asociación ($H_0$), por lo cual, asumimos que las diferencias observadas en la muestra son significativas, es decir, existen a nivel poblacional ($H_1$)"_
 
----
-
-# Ticket de salida
-
-
-<img src="images/qr-ticket2.png" size="90%">
 
 
 
@@ -488,7 +482,7 @@ $s_p = \sqrt{ \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} }$
 
 ```{r}
 
-library(effsize)
+pacman::p_load(effsize)
 cohen.d(Petal.Width ~ Species, data = iris_propia )
 ```
 
